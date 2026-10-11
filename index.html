@@ -3,55 +3,199 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Rate Sapphire Farmhouse</title>
+  <title>Sapphire Farmhouse - Review & Connect</title>
   <style>
-    body { font-family: sans-serif; text-align: center; padding: 20px; background: #f8f9fa; }
-    .card { background: white; padding: 25px; border-radius: 16px; box-shadow: 0 4px 12px rgba(0,0,0,0.1); max-width: 400px; margin: auto; }
-    h2 { margin-bottom: 5px; color: #202124; }
-    p { color: #5f6368; font-size: 14px; }
-    .option { border: 2px solid #e0e0e0; border-radius: 10px; padding: 12px; margin: 12px 0; cursor: pointer; text-align: left; font-size: 14px; }
-    .option.selected { border-color: #1a73e8; background: #e8f0fe; font-weight: bold; }
-    .btn { background: #1a73e8; color: white; border: none; padding: 14px 20px; width: 100%; font-size: 16px; border-radius: 8px; cursor: pointer; font-weight: bold; margin-top: 10px; }
-    .btn:active { background: #1557b0; }
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
+    body { background-color: #0b1a13; color: #333; display: flex; justify-content: center; padding: 16px; }
+    .card { background: #ffffff; width: 100%; max-width: 440px; border-radius: 20px; overflow: hidden; box-shadow: 0 10px 25px rgba(0,0,0,0.3); }
+    
+    /* Header */
+    .header { background: #0f3d2e; color: #f5f5f5; text-align: center; padding: 22px 16px 16px; }
+    .header h1 { font-size: 22px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 4px; }
+    .header p { font-size: 12px; color: #a3c9b8; letter-spacing: 0.5px; }
+    .stars { margin-top: 10px; color: #ffb703; font-size: 18px; }
+    .sub-title { font-size: 11px; text-transform: uppercase; color: #d1e7dd; letter-spacing: 1px; margin-top: 4px; font-weight: 600; }
+
+    /* Controls */
+    .controls { padding: 16px 16px 8px; }
+    .pills { display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; margin-bottom: 12px; }
+    .pill { border: 1px solid #0f3d2e; background: #fff; color: #0f3d2e; padding: 6px 12px; border-radius: 20px; font-size: 12px; font-weight: 600; cursor: pointer; transition: 0.2s; }
+    .pill.active { background: #0f3d2e; color: #fff; }
+
+    .lang-switch { display: flex; justify-content: center; gap: 10px; margin-bottom: 8px; }
+    .lang-btn { background: #e9ecef; border: none; padding: 5px 14px; border-radius: 14px; font-size: 11px; font-weight: bold; color: #495057; cursor: pointer; }
+    .lang-btn.active { background: #ffb703; color: #000; }
+
+    /* Review Box */
+    .review-wrapper { padding: 0 16px 16px; }
+    .review-container { position: relative; border: 2px solid #e2e8f0; border-radius: 14px; background: #fafafa; padding: 14px 44px 14px 14px; min-height: 95px; display: flex; align-items: center; }
+    .review-text { font-size: 13.5px; line-height: 1.5; color: #2d3748; }
+    .refresh-btn { position: absolute; right: 10px; top: 12px; background: #edf2f7; border: none; border-radius: 50%; width: 32px; height: 32px; font-size: 16px; cursor: pointer; display: flex; align-items: center; justify-content: center; }
+    .refresh-btn:active { transform: rotate(90deg); transition: 0.2s; }
+
+    /* Action Button */
+    .action-btn { background: #0f3d2e; color: #fff; border: none; width: 100%; padding: 14px; border-radius: 12px; font-size: 15px; font-weight: bold; cursor: pointer; display: flex; justify-content: center; align-items: center; gap: 8px; margin-top: 12px; box-shadow: 0 4px 10px rgba(15, 61, 46, 0.3); }
+    .action-btn.copied { background: #198754; }
+    .hint { text-align: center; font-size: 11px; color: #6c757d; margin-top: 6px; }
+
+    /* Quick Links */
+    .quick-links { display: flex; justify-content: space-around; padding: 18px 12px; background: #f8f9fa; border-top: 1px solid #e9ecef; }
+    .icon-btn { display: flex; flex-direction: column; align-items: center; text-decoration: none; color: #333; font-size: 11px; font-weight: 600; gap: 6px; }
+    .icon-circle { width: 44px; height: 44px; border-radius: 50%; background: #0f3d2e; color: #fff; display: flex; align-items: center; justify-content: center; font-size: 18px; }
   </style>
 </head>
 <body>
+
   <div class="card">
-    <h2>Sapphire Farmhouse</h2>
-    <p>Apna review chunein aur 5-star rate karein:</p>
-
-    <div class="option selected" onclick="selectReview(this, 'Amazing farmhouse! Great ambience, clean pool, and very cooperative staff. Highly recommended!')">
-      ⭐ "Amazing farmhouse! Great ambience, clean pool, and cooperative staff."
+    <div class="header">
+      <h1>Sapphire Farmhouse</h1>
+      <p>Luxury Stay • Swimming Pool • Event Venue • Bhopal</p>
+      <div class="stars">★★★★★</div>
+      <div class="sub-title">Share Your Experience</div>
     </div>
 
-    <div class="option" onclick="selectReview(this, 'Best place for family gathering and party. Beautiful property and peaceful environment!')">
-      ⭐ "Best place for family gathering and party. Beautiful property!"
+    <div class="controls">
+      <!-- Category Selection -->
+      <div class="pills">
+        <button class="pill active" onclick="setCategory('all')">ALL</button>
+        <button class="pill" onclick="setCategory('pool')">POOL & LAWN</button>
+        <button class="pill" onclick="setCategory('party')">PARTY & EVENT</button>
+        <button class="pill" onclick="setCategory('stay')">STAY & ROOMS</button>
+      </div>
+
+      <!-- Language Switch -->
+      <div class="lang-switch">
+        <button class="lang-btn active" id="btn-en" onclick="setLang('en')">ENGLISH</button>
+        <button class="lang-btn" id="btn-hi" onclick="setLang('hi')">HINGLISH</button>
+      </div>
     </div>
 
-    <div class="option" onclick="selectReview(this, 'Loved the experience! Spacious lawn, well-maintained rooms, and excellent service.')">
-      ⭐ "Loved the experience! Spacious lawn and excellent service."
+    <!-- Dynamic Review Box -->
+    <div class="review-wrapper">
+      <div class="review-container">
+        <div class="review-text" id="review-content">Loading review...</div>
+        <button class="refresh-btn" onclick="shuffleReview()" title="Get another review">⟳</button>
+      </div>
+
+      <button class="action-btn" id="copy-btn" onclick="copyAndRedirect()">
+        📋 COPY & PASTE ON GOOGLE
+      </button>
+      <p class="hint">Tap button to auto-copy review and open Google rating box</p>
     </div>
 
-    <button class="btn" onclick="copyAndRedirect()">Copy & Give 5-Star ⭐</button>
+    <!-- Quick Action / Contact Hub -->
+    <div class="quick-links">
+      <a href="https://search.google.com/local/writereview?placeid=ChIJESTsBgBpfDkRkLdur4QQOy4" class="icon-btn" target="_blank">
+        <div class="icon-circle">📍</div>
+        Directions
+      </a>
+      <a href="https://wa.me/919406511538" class="icon-btn" target="_blank">
+        <div class="icon-circle">💬</div>
+        WhatsApp
+      </a>
+      <a href="tel:+919406511538" class="icon-btn">
+        <div class="icon-circle">📞</div>
+        Call Us
+      </a>
+      <a href="https://instagram.com" class="icon-btn" target="_blank">
+        <div class="icon-circle">📷</div>
+        Instagram
+      </a>
+    </div>
   </div>
 
   <script>
-    let chosenText = "Amazing farmhouse! Great ambience, clean pool, and very cooperative staff. Highly recommended!";
-    const reviewUrl = "https://search.google.com/local/writereview?placeid=ChIJESTsBgBpfDkRkLdur4QQOy4";
+    // Review Database (Spam-Proof Multiple Variants)
+    const reviewsData = {
+      all: {
+        en: [
+          "Had a wonderful time at Sapphire Farmhouse. The property is very peaceful, lush green, and exceptionally well maintained. Highly recommended!",
+          "Best farmhouse in Bhopal for celebrations! Outstanding hospitality, clean environment, and top-notch arrangements.",
+          "Spent a fantastic day here with friends. The ambience is scenic and peaceful. Truly a 5-star destination!"
+        ],
+        hi: [
+          "Sapphire Farmhouse me celebration ka experience bohot zabardast raha. Location peaceful hai aur property bohot clean hai!",
+          "Bhopal me family outing ke liye best jagah hai. Clean environment aur cooperative staff. 5-star experience!",
+          "Bohot hi shaandar ambience aur shanti. Friends aur family ke sath chill karne ke liye perfect place hai."
+        ]
+      },
+      pool: {
+        en: [
+          "The swimming pool was sparkling clean and the open garden area is huge. Perfect spot for outdoor fun and relaxing pool parties!",
+          "Loved the pool side ambience and greenery. Water quality was fresh and properly filtered. Very enjoyable stay!"
+        ],
+        hi: [
+          "Swimming pool ekdum clean aur filtered tha. Lawn area bhi kaafi bada aur beautiful hai. Pool party ke liye best jagah!",
+          "Pool side ambience shaandar hai. Bachho aur family sabko bohot maza aaya. Highly recommend karta hu!"
+        ]
+      },
+      party: {
+        en: [
+          "Celebrated a private gathering here. The venue setup, decorative lighting, and support from the caretakers made it memorable!",
+          "Excellent event destination in Bhopal. Spacious lawn area that easily accommodates big gatherings. Great sound acoustics too!"
+        ],
+        hi: [
+          "Yahan party organize ki thi, management aur space dono top quality the. Sabhi guests ko farm house ka setup bohot pasand aaya!",
+          "Private function aur parties ke liye best farm house. Lighting aur open lawn space bohot impressive hai."
+        ]
+      },
+      stay: {
+        en: [
+          "Rooms were spacious, neat, and equipped with all essential amenities. Complete privacy and very safe surrounding atmosphere.",
+          "Very comfortable overnight stay. The farm breeze, hygiene, and room cleanliness were spot-on. Will definitely visit again."
+        ],
+        hi: [
+          "Rooms bohot neat aur clean the. Pura privacy aur safety ka dhyan rakha gaya hai. Night stay ka experience best raha!",
+          "Overnight stay bohot aaramdayak raha. Bedding aur washrooms clean the. Family stay ke liye 100% recommended."
+        ]
+      }
+    };
 
-    function selectReview(element, text) {
-      document.querySelectorAll('.option').forEach(el => el.classList.remove('selected'));
-      element.classList.add('selected');
-      chosenText = text;
+    let activeCategory = 'all';
+    let activeLang = 'en';
+    const reviewRedirectUrl = "https://search.google.com/local/writereview?placeid=ChIJESTsBgBpfDkRkLdur4QQOy4";
+
+    function updateReviewText() {
+      const list = reviewsData[activeCategory][activeLang];
+      const randomReview = list[Math.floor(Math.random() * list.length)];
+      document.getElementById('review-content').innerText = `"${randomReview}"`;
+    }
+
+    function setCategory(cat) {
+      activeCategory = cat;
+      document.querySelectorAll('.pill').forEach(btn => btn.classList.remove('active'));
+      event.target.classList.add('active');
+      updateReviewText();
+    }
+
+    function setLang(lang) {
+      activeLang = lang;
+      document.getElementById('btn-en').classList.toggle('active', lang === 'en');
+      document.getElementById('btn-hi').classList.toggle('active', lang === 'hi');
+      updateReviewText();
+    }
+
+    function shuffleReview() {
+      updateReviewText();
     }
 
     function copyAndRedirect() {
-      navigator.clipboard.writeText(chosenText).then(() => {
-        window.location.href = reviewUrl;
+      const textToCopy = document.getElementById('review-content').innerText.replace(/^"|"$/g, '');
+      const btn = document.getElementById('copy-btn');
+
+      navigator.clipboard.writeText(textToCopy).then(() => {
+        btn.classList.add('copied');
+        btn.innerText = "✓ COPIED! OPENING GOOGLE...";
+        setTimeout(() => {
+          window.location.href = reviewRedirectUrl;
+        }, 600);
       }).catch(() => {
-        window.location.href = reviewUrl;
+        window.location.href = reviewRedirectUrl;
       });
     }
+
+    // Initialize first review on page load
+    updateReviewText();
   </script>
 </body>
 </html>
